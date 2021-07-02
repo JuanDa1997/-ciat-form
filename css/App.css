@@ -9,7 +9,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3vw;
   flex-direction: column;
   background-color: whitesmoke;
 }
@@ -18,10 +17,11 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  height: 70vw;
+  height: 60vw;
   justify-content: center;
   width: 70vw;
   border-radius: 1vw;
+  margin-top: 30px;
 }
 .App .section_userDates label {
   box-sizing: border-box;
@@ -107,27 +107,40 @@
   background-color: white;
   border-radius: 0.5vw;
   align-items: center;
-}
-.showDataBase table {
-  width: 80vw;
+  margin-top: 30px;
 }
 .showDataBase .namesOfDates {
-  padding-top: 60px;
+  margin-top: 60px;
 }
 .showDataBase .namesOfDates tr td {
-  width: 5vw;
+  width: 8.6vw;
   text-align: left;
   background-color: #ffc977;
-  padding: 10px 20px;
+  padding: 10px 23px;
+  border: 1px solid white;
 }
 .showDataBase .container tr td {
-  width: 5vw;
+  width: 8.6vw;
+  border: 1px solid white;
   text-align: left;
-  padding: 10px 20px;
+  padding: 10px 23px;
   background-color: whitesmoke;
 }
 .showDataBase .container tr td img {
   width: 1.5vw;
+}
+.showDataBase .container tr td.urls {
+  width: 1px;
+}
+
+.navbar {
+  width: 100vw;
+}
+.navbar .nav-item {
+  padding-right: 30px;
+}
+.navbar .nav-item a {
+  font-size: 1.5vw;
 }
 
 /*# sourceMappingURL=App.css.map */
