@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {toast} from 'react-toastify'
-const Forms = (props) => {
+const Forms  = (props) => {
     
 
     const initialStateValues = {
@@ -51,9 +51,50 @@ const Forms = (props) => {
 
     };
 
+    const validate = (e) =>{
+
+        const inputName1 = document.getElementById('name');
+        const inputName2 = document.getElementById('acronym');
+        const inputName3 = document.getElementById('city');
+
+        const maxWords1 = inputName1.value.trim().length;
+        const maxWords2 = inputName2.value.trim().length;
+        const maxWords3 = inputName3.value.trim().length;
+
+
+        if (maxWords1 === 0 ) {
+            // console.log(`está vacío`);
+           inputName1.style="border-color:red";
+            toast('The name field must not be empty!', {
+                type: 'warning',
+                autoclose:1000,
+            });
+        }
+
+        if (maxWords2 === 0 ) {
+            inputName2.style="border-color:red";
+            toast('The acronym field must not be empty!', {
+                type: 'warning',
+                autoclose:1000,
+            });
+        }
+
+        if (maxWords3 === 0 ) {
+            inputName3.style="border-color:red";
+            toast('The city field must not be empty!', {
+                type: 'warning',
+                autoclose:1000,
+            });
+        }
+
+        
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
+       
+        validate();
         if(!validateUrl(values.theLinks)){
             return toast('Invalid URL', {
                 type: 'warning',
@@ -106,6 +147,17 @@ const Forms = (props) => {
         }
     }
 
+    const resetStyle = (e) =>{
+        if (e.target) {
+            e.target.addEventListener("change",(e)=>{
+                
+                e.target.style="";
+                
+            
+                
+            });
+        }
+    }
   
   
     
@@ -145,7 +197,7 @@ const Forms = (props) => {
                     <label htmlFor="fname">Select institute headquarter: <label htmlFor="*" style={{color: "red"}} >*</label></label>
                     <select className="SelectInstitute" id="selector3" name="Institution_headquarter" onClick={theFunction}>
                         <option value="value1" selected hidden>Select an option...</option>
-                        <option value="Headquarter" id="default">headquarters</option>
+                        <option value="Headquarter" hidden id="default">headquarters</option>
                         <option value="Branch">Branch</option>
                         <option value="Regional office">Regional office</option>
                     </select>
@@ -154,11 +206,11 @@ const Forms = (props) => {
                 <form className='eventInput pure-form'>
                     <fieldset>
                         <label htmlFor="lname">Name: <label htmlFor="*" style={{color: "red"}} >*</label></label>
-                        <input name='name' type='text' id='name' onChange={handleInputChange} value={values.name}/>
+                        <input name='name' type='text' id='name' onChange={handleInputChange} value={values.name} onClick={resetStyle}/>
                         <label htmlFor="lacronym" >Acronym: <label htmlFor="*" style={{color: "red"}} >*</label></label>
-                        <input name='acronym' type='text' maxlength="10" id='acronym' onChange={handleInputChange} value={values.acronym}/>
+                        <input name='acronym' type='text' maxlength="10" id='acronym' onChange={handleInputChange} value={values.acronym} onClick={resetStyle}/>
                         <label htmlFor="lcity">City: <label htmlFor="*" style={{color: "red"}} >*</label></label>
-                        <input name='city' type='text'  onChange={handleInputChange} value={values.city}/>
+                        <input name='city' type='text' id='city' onChange={handleInputChange} value={values.city} onClick={resetStyle}/>
                     </fieldset>
                 </form>
             

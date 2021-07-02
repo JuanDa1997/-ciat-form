@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import imgDelete from '../../assets/img/delete.png'
 import { db } from '../firebase';
-import {toast} from 'react-toastify'
+import {toast} from 'react-toastify';
+
 
 const listInstitutes = (props) =>{
     
@@ -16,7 +17,6 @@ const listInstitutes = (props) =>{
    };
     return(
         <div className="showDataBase">
-
             <table className='namesOfDates'>
                 <tr>
                     <td>headquarter</td>
@@ -43,7 +43,7 @@ const listInstitutes = (props) =>{
                         <td>{link.city}</td>
                         <td>{link.Country}</td>
                         <td>{link.Type}</td>
-                        <td>{link.theLinks}</td>
+                        <td className='urls'>{link.theLinks}</td>
                         <td><img src={imgDelete} alt="delete" onClick={() => handleDelete(link.id)} /></td>
                     </tr>
                   

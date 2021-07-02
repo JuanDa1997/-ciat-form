@@ -10,20 +10,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 3vw;
     flex-direction: column;
     background-color: whitesmoke;
     
     
    .section_userDates{
     align-items: center;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
-    height: 70vw;
+    height: 60vw;
     justify-content: center;
     width: 70vw;
     border-radius: 1vw;
+    margin-top: 30px;
+    
 
     label{
         box-sizing: border-box;
@@ -39,6 +40,7 @@
         width: 20vw;
         box-sizing: border-box;
         margin-bottom: 30px;
+        
         button{
             width: 7vw;
             height: 2vw;
@@ -132,18 +134,19 @@
     background-color: rgb(255, 255, 255);
     border-radius: 0.5vw;
     align-items: center;
-    table{
-        width: 80vw;
-    }
+    margin-top: 30px;
+   
 
     .namesOfDates{
-        padding-top: 60px;
+        margin-top: 60px;
         tr{
             td{
-                width: 5vw;
+                width: 8.6vw;
                 text-align:left;
                 background-color: rgb(255, 201, 119);
-                padding: 10px 20px;
+                padding: 10px 23px;
+                border: 1px solid rgb(255, 255, 255);
+                
             }
 
         }
@@ -152,17 +155,24 @@
 
     
     .container{
+        
         tr{
-            td{
             
-                width: 5vw;
+            td{
+                width: 8.6vw;
+                border: 1px solid rgb(255, 255, 255);
                 text-align:left;
-                padding: 10px 20px;
+                padding: 10px 23px;
                 background-color: whitesmoke;
                 img{
+                    
                     width: 1.5vw;
                 }
                
+               
+            }
+            td.urls{
+                width: 1px;
             }
         }
         
@@ -173,4 +183,18 @@
     
 
     
+}
+
+
+
+.navbar{
+
+    width: 100vw;
+    .nav-item{
+        padding-right: 30px;
+        a{
+            font-size: 1.5vw;;
+        }
+    }
+
 }
