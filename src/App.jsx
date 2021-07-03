@@ -37,7 +37,7 @@ const App = () => {
     
    
   }
-  console.log(links)
+  console.log(`bd ${links}`)
 
   const getLinks = () => {
     db.collection('links').onSnapshot((querySnapShot) =>{

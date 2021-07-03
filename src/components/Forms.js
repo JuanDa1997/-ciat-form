@@ -19,7 +19,7 @@ const Forms  = (props) => {
         const words = e.target.value;
         if (e.target.id === "name") {
             const maxWords = words.trim().split(/\s+/).length;
-            if (maxWords>2) {
+            if (maxWords>=10) {
                 
                 toast('It must be less than 10 words!', {
                     type: 'warning',
@@ -46,10 +46,7 @@ const Forms  = (props) => {
         // console.log(e.target)
     }
 
-    const validateUrl = (str) => {
-        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(str);
-
-    };
+    
 
     const validate = (e) =>{
 
@@ -61,46 +58,61 @@ const Forms  = (props) => {
         const maxWords2 = inputName2.value.trim().length;
         const maxWords3 = inputName3.value.trim().length;
 
-
+       
         if (maxWords1 === 0 ) {
             // console.log(`está vacío`);
            inputName1.style="border-color:red";
-            toast('The name field must not be empty!', {
-                type: 'warning',
-                autoclose:1000,
-            });
+          
         }
 
         if (maxWords2 === 0 ) {
             inputName2.style="border-color:red";
-            toast('The acronym field must not be empty!', {
-                type: 'warning',
-                autoclose:1000,
-            });
+           
         }
 
         if (maxWords3 === 0 ) {
             inputName3.style="border-color:red";
-            toast('The city field must not be empty!', {
+           
+        }
+    
+
+        if (maxWords1 >= 1 && maxWords2 >= 1 && maxWords3 >= 1) {
+            console.log(`campos llenos`)
+        }else{
+
+            return toast('The fields must not be empty!', {
                 type: 'warning',
-                autoclose:1000,
+                 autoclose:1000,
             });
         }
 
         
     }
 
+    const validateUrl = (str) => {
+        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(str);
+
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        validate()
 
-       
-        validate();
+        validateSelector();
+        
         if(!validateUrl(values.theLinks)){
-            return toast('Invalid URL', {
+            return toast('Empty URL', {
                 type: 'warning',
                 autoclose:1000,
             });
         }
+
+       
+
+        //si retorna true todos los inputs están llenos
+       
+    
+
         props.addOrEditLink(values);
         setValues({...initialStateValues});
     }
@@ -127,20 +139,17 @@ const Forms  = (props) => {
         }
     }
    
-
-    // const select1 = document.getElementById('selector1');
-    // const select2 = document.getElementById('selector2');
-    // const select3 = document.getElementById('selector3');
-
-    //Busca en el domElemente el elemento select y lo guarda
-    // en la base de datos
-
     let theFunction =(e)=>{
         // console.log(e.target)
         if (e.target) {
             e.target.addEventListener("change",(e)=>{
                 const{name,value} = e.target;
                 console.log(`${value}`);
+                e.target.style="";
+                // if (value==="value1") {
+                //     e.target.style="border-color:red";
+                // }
+                
                 setValues({...values,[name]:value})
                 
             });
@@ -158,28 +167,41 @@ const Forms  = (props) => {
             });
         }
     }
-  
-  
     
-    // if (select2) {
-    //     select2.addEventListener('change',(e)=>{
-    //         const{name,value} = e.target;
-    //         console.log(`${value}`);
-    //         setValues({...values,[name]:value})
-            
-    //     });
-    // }
+    const validateSelector =()=>{
+       const selector3 = document.getElementById('selector3');
+       const selector1 = document.getElementById('selector1');
+       const selector2 = document.getElementById('selector2');
+       console.log(selector3.value)
+       console.log(selector1.value)
 
-    // if (select3) {
-    //     select3.addEventListener('change',(e)=>{
-    //         const{name,value} = e.target;
-    //         console.log(`${value}`);
-    //         setValues({...values,[name]:value})
-            
-    //     });
-    // }
 
-    
+        if (selector3.value==="value1" || selector1.value==="value1" || selector2.value==="value1") {
+            selector3.style="border-color:red";
+            selector1.style="border-color:red";
+            selector2.style="border-color:red";
+
+            if(selector3.value !== "value1" && selector1.value !=="value1" && selector2.value !=="value1"){
+                console.log(`selects llenos`)
+            }else{
+                console.log(`selects vacios`)
+                return toast('The fields must not be empty!', {
+                    type: 'warning',
+                    autoclose:1000,
+                });
+            }
+
+
+            return toast('The fields must not be empty!', {
+                type: 'warning',
+                autoclose:1000,
+            });
+        }
+
+        
+        
+    }
+  
    
 
     return(
@@ -195,8 +217,8 @@ const Forms  = (props) => {
 
                 <form id="firstSelect">
                     <label htmlFor="fname">Select institute headquarter: <label htmlFor="*" style={{color: "red"}} >*</label></label>
-                    <select className="SelectInstitute" id="selector3" name="Institution_headquarter" onClick={theFunction}>
-                        <option value="value1" selected hidden>Select an option...</option>
+                    <select className="SelectInstitute" id="selector3" name="Institution_headquarter" onClick={theFunction} >
+                        <option value="value1" selected >Select an option...</option>
                         <option value="Headquarter" hidden id="default">headquarters</option>
                         <option value="Branch">Branch</option>
                         <option value="Regional office">Regional office</option>
@@ -217,7 +239,7 @@ const Forms  = (props) => {
                 <form >
                     <label htmlFor="fname">Country: <label htmlFor="*" style={{color: "red"}} >*</label></label>
                     <select className="SelectInstitute" id="selector1" name="Country" onClick={theFunction}>
-                        <option value="value1" selected hidden>Select an option...</option>
+                        <option value="value1" selected >Select an option...</option>
                         <option value="AF">Afganistán</option>
                         <option value="AL">Albania</option>
                         <option value="DE">Alemania</option>
@@ -458,7 +480,7 @@ const Forms  = (props) => {
                 <form >
                     <label htmlFor="fname">Type: <label htmlFor="*" style={{color: "red"}} >*</label></label>
                     <select className="SelectInstitute" id='selector2' name="Type" onClick={theFunction}>
-                        <option value="value1" selected hidden>Select an option...</option>
+                        <option value="value1" selected >Select an option...</option>
                         <option value="Academic Institutions">Academic Institutions</option>
                         <option value="Donor">Donor</option>
                         <option value="Non-Governmental Organization">Non-Governmental Organization</option>
