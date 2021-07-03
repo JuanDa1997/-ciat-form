@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {toast} from 'react-toastify'
 const Forms  = (props) => {
+    
     
 
     const initialStateValues = {
@@ -12,11 +14,18 @@ const Forms  = (props) => {
         
         
     };
+
     
+    // const {name} = listaBd
+    // console.log(listaBd)
+    
+    
+
     const [values, setValues] = useState(initialStateValues);
 
     const handleInputChange = (e) => {
         const words = e.target.value;
+        
         if (e.target.id === "name") {
             const maxWords = words.trim().split(/\s+/).length;
             if (maxWords>=10) {
@@ -26,6 +35,18 @@ const Forms  = (props) => {
                     autoclose:1000,
                 })
             }
+            props.other.find((element) => {
+                
+                if (element.name === words) {
+                    
+                    return toast('The name entered already exists!', {
+                        type: 'warning',
+                        autoclose:1000,
+                    })
+                }
+                
+    
+            });
            
         }
 
@@ -40,6 +61,25 @@ const Forms  = (props) => {
                 })
             }
         }
+
+        if (e.target.id ==="inputLink") {
+            console.log(e.target.value);
+
+            if(e.target.value){
+                if(!validateUrl(e.target.value)){
+                    e.target.style="border-color:red";
+                   
+                }else{
+                    toast('Valid Url', {
+                        type: 'success',
+                        autoclose:1000,
+                    });
+                    e.target.style=""
+                    console.log(true);
+                }
+            }
+        }
+     
        
         const{name, value} = e.target;
         setValues({...values,[name]: value})
@@ -48,7 +88,7 @@ const Forms  = (props) => {
 
     
 
-    const validate = (e) =>{
+    const validate = () =>{
 
         const inputName1 = document.getElementById('name');
         const inputName2 = document.getElementById('acronym');
@@ -57,7 +97,7 @@ const Forms  = (props) => {
         const maxWords1 = inputName1.value.trim().length;
         const maxWords2 = inputName2.value.trim().length;
         const maxWords3 = inputName3.value.trim().length;
-
+        let validarCampos = true;
        
         if (maxWords1 === 0 ) {
             // console.log(`está vacío`);
@@ -75,16 +115,18 @@ const Forms  = (props) => {
            
         }
     
-
+        
+       
         if (maxWords1 >= 1 && maxWords2 >= 1 && maxWords3 >= 1) {
-            console.log(`campos llenos`)
+            return validarCampos;
         }else{
-
-            return toast('The fields must not be empty!', {
-                type: 'warning',
-                 autoclose:1000,
-            });
+            
+            console.log(`campos vacios`)
+            validarCampos = false;
+            return validarCampos;
+     
         }
+        
 
         
     }
@@ -94,57 +136,58 @@ const Forms  = (props) => {
 
     };
 
+    const handleButton =(e)=>{
+       
+        if (e.target) {
+           
+            const{name,value} = e.target;
+
+            if (value === "no") {
+                const ghost = document.getElementById('firstSelect');
+                ghost.style="display:none";
+                const defaultValue = document.getElementById('default');
+                const{name,value} = defaultValue;
+                
+
+                console.log(value);
+                setValues({...values,[name]:value})
+
+    
+            }    
+            
+            if (value==="yes") {
+                const ghost = document.getElementById('firstSelect');
+                ghost.style="";
+            }
+            setValues({...values,[name]:value})
+     
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        validate()
 
-        validateSelector();
         
-        if(!validateUrl(values.theLinks)){
-            return toast('Empty URL', {
+        if(validateSelector()===false  && validate()===false){
+            return toast('The fields must not be empty!', {
                 type: 'warning',
                 autoclose:1000,
             });
         }
 
-       
-
-        //si retorna true todos los inputs están llenos
-       
-    
 
         props.addOrEditLink(values);
         setValues({...initialStateValues});
     }
 
-    const handleButton =(e)=>{
-        console.log(e.target);
-        if (e.target) {
-            
-            const{name,value} = e.target;
-            console.log(`${value}`);
-            setValues({...values,[name]:value})
-
-            if (value === "no") {
-                const ghost = document.getElementById('firstSelect').style="display:none"
-                // const defaultElement = document.getElementById('default');
-                // const{name,value} = defaultElement;
-                // setValues({...values,[name]:value})
-                // console.log(value)
-                // const defaultElement = document.getElementById('default');
-                // const{name,value} = defaultElement;
-                // setValues({...values,[name]:value})
-                    
-            }          
-        }
-    }
+ 
    
     let theFunction =(e)=>{
         // console.log(e.target)
         if (e.target) {
             e.target.addEventListener("change",(e)=>{
                 const{name,value} = e.target;
-                console.log(`${value}`);
+                // console.log(`${value}`);
                 e.target.style="";
                 // if (value==="value1") {
                 //     e.target.style="border-color:red";
@@ -172,30 +215,25 @@ const Forms  = (props) => {
        const selector3 = document.getElementById('selector3');
        const selector1 = document.getElementById('selector1');
        const selector2 = document.getElementById('selector2');
-       console.log(selector3.value)
-       console.log(selector1.value)
+    //    console.log(selector3.value)
+    //    console.log(selector1.value)
+       let validarCampos = true;
 
-
-        if (selector3.value==="value1" || selector1.value==="value1" || selector2.value==="value1") {
+        if (selector1.value==="value1" || selector2.value==="value1") {
             selector3.style="border-color:red";
             selector1.style="border-color:red";
             selector2.style="border-color:red";
 
-            if(selector3.value !== "value1" && selector1.value !=="value1" && selector2.value !=="value1"){
-                console.log(`selects llenos`)
+            if(selector1.value !=="value1" && selector2.value !=="value1"){
+                // console.log(`selects llenos`)
             }else{
-                console.log(`selects vacios`)
-                return toast('The fields must not be empty!', {
-                    type: 'warning',
-                    autoclose:1000,
-                });
+                // console.log(`selects vacios`)
+                validarCampos = false;
+                return validarCampos;
             }
 
-
-            return toast('The fields must not be empty!', {
-                type: 'warning',
-                autoclose:1000,
-            });
+            validarCampos = false;
+            return validarCampos;
         }
 
         
@@ -492,7 +530,7 @@ const Forms  = (props) => {
                 <form className='eventInput'>
                     <fieldset>
                         <label htmlFor="lthelink">If you know the partner website please paste the link below:</label>
-                        <input name='theLinks' type='text'  placeholder="http://" onChange={handleInputChange} value={values.theLinks}/>
+                        <input name='theLinks' type='text' id="inputLink" placeholder="http://" onChange={handleInputChange} value={values.theLinks}/>
                     </fieldset>
                 </form>
             

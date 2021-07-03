@@ -37,7 +37,7 @@ const App = () => {
     
    
   }
-  console.log(`bd ${links}`)
+  // console.log(`bd ${links}`)
 
   const getLinks = () => {
     db.collection('links').onSnapshot((querySnapShot) =>{
@@ -53,7 +53,7 @@ const App = () => {
     getLinks();
   },[]);
 
-  console.log(links);
+  // console.log(links);
   return (
     <Router>
         <div className="App">
@@ -61,7 +61,7 @@ const App = () => {
         <Switch>
           <Route exact path='/' component={Forms}>
 
-            <Forms addOrEditLink={addOrEditLink}/>
+            <Forms addOrEditLink={addOrEditLink} other={links}/>
           </Route>
 
           <Route exact path='/lista'  component={List}>
