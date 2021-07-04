@@ -113,24 +113,19 @@
   margin-top: 60px;
 }
 .showDataBase .namesOfDates tr td {
-  width: 8.6vw;
   text-align: left;
   background-color: #ffc977;
-  padding: 10px 23px;
+  padding: 10px 63px;
   border: 1px solid white;
 }
 .showDataBase .container tr td {
-  width: 8.6vw;
   border: 1px solid white;
   text-align: left;
-  padding: 10px 23px;
+  padding: 20px 60px;
   background-color: whitesmoke;
 }
 .showDataBase .container tr td img {
   width: 1.5vw;
-}
-.showDataBase .container tr td.urls {
-  width: 1px;
 }
 
 .navbar {

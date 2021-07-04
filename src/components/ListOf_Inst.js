@@ -17,26 +17,11 @@ const listInstitutes = (props) =>{
    };
     return(
         <div className="showDataBase">
-            <table className='namesOfDates'>
-                <tr>
-                    <td>headquarter</td>
-                    <td>Name</td>
-                    <td>Acronym</td>
-                    <td>City</td>
-                    <td>Country</td>
-                    <td>Type</td>
-                    <td>institute</td>
-                    <td>Link</td>
-                    <td>Remove</td>
-                   
-                    
-                </tr>
-            </table>
            
             {props.send.map((link) =>(
+                
                 <table className="container" key={link.id}>
                     <tr>
-                        <td>{link.buttons}</td>
                         <td>{link.Institution_headquarter}</td>
                         <td>{link.name}</td>
                         <td>{link.acronym}</td>

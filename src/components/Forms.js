@@ -16,11 +16,6 @@ const Forms  = (props) => {
     };
 
     
-    // const {name} = listaBd
-    // console.log(listaBd)
-    
-    
-
     const [values, setValues] = useState(initialStateValues);
 
     const handleInputChange = (e) => {
@@ -35,21 +30,11 @@ const Forms  = (props) => {
                     autoclose:1000,
                 })
             }
-            props.other.find((element) => {
-                
-                if (element.name === words) {
-                    
-                    return toast('The name entered already exists!', {
-                        type: 'warning',
-                        autoclose:1000,
-                    })
-                }
-                
-    
-            });
+            
            
         }
 
+       
         if (e.target.id === "acronym") {
             const maxWords = words.trim().length;
            
@@ -62,30 +47,27 @@ const Forms  = (props) => {
             }
         }
 
-        if (e.target.id ==="inputLink") {
-            console.log(e.target.value);
-
-            if(e.target.value){
-                if(!validateUrl(e.target.value)){
-                    e.target.style="border-color:red";
-                   
-                }else{
-                    toast('Valid Url', {
-                        type: 'success',
-                        autoclose:1000,
-                    });
-                    e.target.style=""
-                    console.log(true);
-                }
-            }
-        }
-     
-       
+        
         const{name, value} = e.target;
         setValues({...values,[name]: value})
         // console.log(e.target)
     }
 
+    const watching = (e) =>{
+        
+        const words = e.target.value;
+        props.other.find((element) => {
+                        
+            if (element.name === words) {
+                
+                return toast('The name entered already exists!', {
+                    type: 'warning',
+                    autoclose:1000,
+                })
+            }
+                        
+        });
+    }
     
 
     const validate = () =>{
@@ -97,7 +79,7 @@ const Forms  = (props) => {
         const maxWords1 = inputName1.value.trim().length;
         const maxWords2 = inputName2.value.trim().length;
         const maxWords3 = inputName3.value.trim().length;
-        let validarCampos = true;
+        let primero = "true"
        
         if (maxWords1 === 0 ) {
             // console.log(`está vacío`);
@@ -118,12 +100,12 @@ const Forms  = (props) => {
         
        
         if (maxWords1 >= 1 && maxWords2 >= 1 && maxWords3 >= 1) {
-            return validarCampos;
+            return primero 
         }else{
             
-            console.log(`campos vacios`)
-            validarCampos = false;
-            return validarCampos;
+            primero = "false"
+            
+            return primero 
      
         }
         
@@ -141,60 +123,79 @@ const Forms  = (props) => {
         if (e.target) {
            
             const{name,value} = e.target;
+            setValues({...values,[name]:value})
 
             if (value === "no") {
                 const ghost = document.getElementById('firstSelect');
                 ghost.style="display:none";
                 const defaultValue = document.getElementById('default');
-                const{name,value} = defaultValue;
-                
-
-                console.log(value);
-                setValues({...values,[name]:value})
-
-    
+                const{name2,value2} = defaultValue;
+               
+            
             }    
             
             if (value==="yes") {
                 const ghost = document.getElementById('firstSelect');
+                
                 ghost.style="";
+                
             }
-            setValues({...values,[name]:value})
      
         }
     }
 
+    //saves items to the database and validates some fields
     const handleSubmit = (e) => {
         e.preventDefault();
 
+       
         
-        if(validateSelector()===false  && validate()===false){
-            return toast('The fields must not be empty!', {
+        if (validate() === "true") {
+            if(validateSelector() === "true"){
+                return toast('los select estan default', {
+                    type: 'warning',
+                    autoclose:1000,
+                });
+            }
+        }
+
+        
+        if(validateSelector() === "false"){
+            if(validate() === "false"){
+                return toast('There are empty fields', {
+                    type: 'warning',
+                    autoclose:1000,
+                });
+            }
+        }
+       
+        if (validate()==="false") {
+            return toast('There are empty fields', {
+                type: 'warning',
+                autoclose:1000,
+            });
+        }
+        
+        if(validateSelector() === "true"){
+            return toast('There are empty fields', {
                 type: 'warning',
                 autoclose:1000,
             });
         }
 
+        
 
         props.addOrEditLink(values);
         setValues({...initialStateValues});
     }
-
- 
-   
+  
+    // saves selected items from drop-down 
     let theFunction =(e)=>{
-        // console.log(e.target)
         if (e.target) {
             e.target.addEventListener("change",(e)=>{
                 const{name,value} = e.target;
-                // console.log(`${value}`);
-                e.target.style="";
-                // if (value==="value1") {
-                //     e.target.style="border-color:red";
-                // }
-                
                 setValues({...values,[name]:value})
-                
+                e.target.style=""; 
             });
         }
     }
@@ -203,61 +204,82 @@ const Forms  = (props) => {
         if (e.target) {
             e.target.addEventListener("change",(e)=>{
                 
-                e.target.style="";
-                
-            
-                
+                e.target.style="";  
             });
         }
     }
-    
+
+    // const inputUrl = () => {
+    //     if (e.target.id ==="inputLink") {
+    //         console.log(e.target.value);
+
+    //         if(e.target.value){
+    //             if(!validateUrl(e.target.value)){
+    //                 e.target.style="border-color:red";
+                   
+    //             }else{
+    //                 toast('Valid Url', {
+    //                     type: 'success',
+    //                     autoclose:1000,
+    //                 });
+    //                 e.target.style=""
+                    
+    //             }
+    //         }
+    //     }
+    // }
+
+   
+    //verifies that all fields in the drop-downs are full
     const validateSelector =()=>{
        const selector3 = document.getElementById('selector3');
        const selector1 = document.getElementById('selector1');
        const selector2 = document.getElementById('selector2');
-    //    console.log(selector3.value)
-    //    console.log(selector1.value)
-       let validarCampos = true;
+    
+       let primero = "false"
 
-        if (selector1.value==="value1" || selector2.value==="value1") {
-            selector3.style="border-color:red";
-            selector1.style="border-color:red";
-            selector2.style="border-color:red";
+        if (selector3.value==="value1") selector3.style="border-color:red";
 
-            if(selector1.value !=="value1" && selector2.value !=="value1"){
-                // console.log(`selects llenos`)
-            }else{
-                // console.log(`selects vacios`)
-                validarCampos = false;
-                return validarCampos;
-            }
+        if (selector1.value==="value1") selector1.style="border-color:red";
 
-            validarCampos = false;
-            return validarCampos;
+        if (selector2.value==="value1") selector2.style="border-color:red";
+        
+        
+        if(selector3.value!=="value1" &&selector1.value !=="value1" && selector2.value !=="value1"){
+            //si el valor es diferente al default
+            return primero
+        }else{
+            
+            // selectores iguales a valor 1
+            primero = "true"
+            return primero;
         }
 
+            
         
         
     }
-  
+    
+    const bypass = (e) =>{
+        
+        watching(e);
+        handleInputChange(e);
+
+    }
    
 
     return(
 
         <div className="App">
 
-            <div class="section_userDates">
-                <label htmlFor="linstitute">Is this institution a branch? </label>
-                <div className="button_institution"  >
-                    <button type="button" value="yes" name="buttons" onClick={handleButton}>Yes</button>
-                    <button type="button" value="no" name="buttons" onClick={handleButton}>No</button>
-                </div>
-
-                <form id="firstSelect">
+            <div className
+            ="section_userDates">
+               
+                <form id="firstSelect" >
                     <label htmlFor="fname">Select institute headquarter: <label htmlFor="*" style={{color: "red"}} >*</label></label>
                     <select className="SelectInstitute" id="selector3" name="Institution_headquarter" onClick={theFunction} >
                         <option value="value1" selected >Select an option...</option>
-                        <option value="Headquarter" hidden id="default">headquarters</option>
+                        <option value="Headquarter" >headquarters</option>
                         <option value="Branch">Branch</option>
                         <option value="Regional office">Regional office</option>
                     </select>
@@ -266,9 +288,9 @@ const Forms  = (props) => {
                 <form className='eventInput pure-form'>
                     <fieldset>
                         <label htmlFor="lname">Name: <label htmlFor="*" style={{color: "red"}} >*</label></label>
-                        <input name='name' type='text' id='name' onChange={handleInputChange} value={values.name} onClick={resetStyle}/>
+                        <input name='name' type='text' id='name' onChange={bypass} value={values.name} onClick={resetStyle}/>
                         <label htmlFor="lacronym" >Acronym: <label htmlFor="*" style={{color: "red"}} >*</label></label>
-                        <input name='acronym' type='text' maxlength="10" id='acronym' onChange={handleInputChange} value={values.acronym} onClick={resetStyle}/>
+                        <input name='acronym' type='text' maxLength="10" id='acronym' onChange={handleInputChange} value={values.acronym} onClick={resetStyle}/>
                         <label htmlFor="lcity">City: <label htmlFor="*" style={{color: "red"}} >*</label></label>
                         <input name='city' type='text' id='city' onChange={handleInputChange} value={values.city} onClick={resetStyle}/>
                     </fieldset>
@@ -518,7 +540,7 @@ const Forms  = (props) => {
                 <form >
                     <label htmlFor="fname">Type: <label htmlFor="*" style={{color: "red"}} >*</label></label>
                     <select className="SelectInstitute" id='selector2' name="Type" onClick={theFunction}>
-                        <option value="value1" selected >Select an option...</option>
+                        <option value="value1"  selected >Select an option...</option>
                         <option value="Academic Institutions">Academic Institutions</option>
                         <option value="Donor">Donor</option>
                         <option value="Non-Governmental Organization">Non-Governmental Organization</option>
@@ -529,7 +551,7 @@ const Forms  = (props) => {
                
                 <form className='eventInput'>
                     <fieldset>
-                        <label htmlFor="lthelink">If you know the partner website please paste the link below:</label>
+                        <label htmlFor="lthelink">If you know the partner website please paste the link below: <label htmlFor="*" style={{color: "red"}} >*</label></label>
                         <input name='theLinks' type='text' id="inputLink" placeholder="http://" onChange={handleInputChange} value={values.theLinks}/>
                     </fieldset>
                 </form>
