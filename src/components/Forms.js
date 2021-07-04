@@ -148,11 +148,11 @@ const Forms  = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-       
-        
+        inputUrl();
+
         if (validate() === "true") {
             if(validateSelector() === "true"){
-                return toast('los select estan default', {
+                return toast('There are empty fields', {
                     type: 'warning',
                     autoclose:1000,
                 });
@@ -182,7 +182,7 @@ const Forms  = (props) => {
                 autoclose:1000,
             });
         }
-
+        
         
 
         props.addOrEditLink(values);
@@ -209,27 +209,26 @@ const Forms  = (props) => {
         }
     }
 
-    // const inputUrl = () => {
-    //     if (e.target.id ==="inputLink") {
-    //         console.log(e.target.value);
+    const inputUrl = () => {
+        const urli = document.getElementById('inputLink').value;
+        const laUrl = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(urli);
+        const emptyValue = urli.trim().length;
 
-    //         if(e.target.value){
-    //             if(!validateUrl(e.target.value)){
-    //                 e.target.style="border-color:red";
-                   
-    //             }else{
-    //                 toast('Valid Url', {
-    //                     type: 'success',
-    //                     autoclose:1000,
-    //                 });
-    //                 e.target.style=""
-                    
-    //             }
-    //         }
-    //     }
-    // }
+        if (emptyValue!==0) {
+            if (laUrl === false) {
+            
+                return toast('Invalid url', {
+                    type: 'warning',
+                    autoclose:1000,
+                });
+            }
+        }
 
-   
+     
+
+        
+    }
+
     //verifies that all fields in the drop-downs are full
     const validateSelector =()=>{
        const selector3 = document.getElementById('selector3');

@@ -68,9 +68,6 @@ const App = () => {
             <List send={links}/>
           </Route>
 
-          <Route path="*">
-            <Errors />
-          </Route>
         </Switch>  
       <ToastContainer />
     </div>

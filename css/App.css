@@ -3,6 +3,8 @@
   padding: 0;
   box-sizing: content-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 0.8vw;
+  color: white;
 }
 
 .App {
@@ -14,19 +16,19 @@
 }
 .App .section_userDates {
   align-items: center;
-  background-color: white;
+  background-color: #212529;
   display: flex;
   flex-direction: column;
-  height: 60vw;
+  height: 100vh;
   justify-content: center;
-  width: 70vw;
+  width: 60vw;
   border-radius: 1vw;
   margin-top: 30px;
+  margin-bottom: 30px;
 }
 .App .section_userDates label {
   box-sizing: border-box;
-  margin-bottom: 10px;
-  background-color: white;
+  padding-bottom: 10px;
 }
 .App .section_userDates .button_institution {
   display: flex;
@@ -51,52 +53,50 @@
 .App .section_userDates .button_sendForms {
   display: flex;
   justify-content: center;
-  background-color: white;
   width: 25vw;
   box-sizing: border-box;
 }
 .App .section_userDates .button_sendForms button {
-  width: 15vw;
+  width: 13vw;
   height: 3vw;
   border-style: none;
-  background-color: #ff6c6c;
-  border-radius: 0.8vw;
+  background-color: #6cff91;
+  border-radius: 2vw;
+  color: black;
 }
 .App .section_userDates .button_sendForms button:hover {
-  background-color: #eb3232;
+  background-color: #4ac568;
   transition-duration: 0.4s;
 }
 .App .section_userDates form {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: white;
   width: 50vw;
 }
-.App .section_userDates form label {
-  background-color: white;
-}
 .App .section_userDates form .SelectInstitute {
-  background-color: white;
+  background-color: #212529;
   border-radius: 0.6vw;
   padding: 5px;
   box-sizing: border-box;
   margin-bottom: 20px;
+  color: white;
 }
 .App .section_userDates .eventInput fieldset {
   display: flex;
   flex-direction: column;
-  background-color: white;
   border-style: none;
 }
 .App .section_userDates .eventInput fieldset input {
-  background-color: white;
+  width: 50vw;
+  background-color: #212529;
   border-width: 0.5px;
-  height: 30px;
-  border-radius: 0.5vw;
-  box-sizing: border-box;
+  border-radius: 1vw;
   margin-bottom: 20px;
-  padding: 14px 20px;
+  padding: 6px 20px;
+  color: white;
+  border-color: white;
+  border-style: solid;
 }
 
 .showDataBase {
@@ -104,27 +104,12 @@
   height: 60vw;
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: #212529;
   border-radius: 0.5vw;
-  align-items: center;
   margin-top: 30px;
+  margin-bottom: 30px;
 }
-.showDataBase .namesOfDates {
-  margin-top: 60px;
-}
-.showDataBase .namesOfDates tr td {
-  text-align: left;
-  background-color: #ffc977;
-  padding: 10px 63px;
-  border: 1px solid white;
-}
-.showDataBase .container tr td {
-  border: 1px solid white;
-  text-align: left;
-  padding: 20px 60px;
-  background-color: whitesmoke;
-}
-.showDataBase .container tr td img {
+.showDataBase table tr td img {
   width: 1.5vw;
 }
 
@@ -135,7 +120,7 @@
   padding-right: 30px;
 }
 .navbar .nav-item a {
-  font-size: 1.5vw;
+  font-size: 1vw;
 }
 
 /*# sourceMappingURL=App.css.map */
